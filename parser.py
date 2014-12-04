@@ -12,7 +12,7 @@ def find_movies(actor):
     movies = []
 
     for link in soup.findAll('a', href = re.compile('/title/')):
-        movies.append("http://m.imdb.com" + str(link.get('href')))
+        movies.append(("http://m.imdb.com" + str(link.get('href'))[:17]))
 
     return movies
 
@@ -23,14 +23,16 @@ def find_actors(movie):
     data = page.read()
     soup = BeautifulSoup(data)
 
-    for link in soup.findAll('a', href = re.compile('/name/nm')):
-        actors.append(link.get('href'))
+    for link in soup.findAll('a', href = re.compile('http://m.imdb.com/name/nm')):
+        actors.append(str(link.get('href'))[:33])
 
     return actors
 
 graph = {}
 
 def neighbors(actor):
+    if actor in graph:
+        return graph[actor]
     graph[actor] = []
     for movie in find_movies(actor):
         actors = find_actors(movie)
@@ -40,7 +42,6 @@ def neighbors(actor):
     return graph[actor]
 
 Bacon = "http://m.imdb.com/name/nm0000102/filmotype/actor?ref_=m_nmfm_1"
-#print find_movies(Bacon)
-#for x in find_actors("http://m.imdb.com/title/tt1951265/"):
-#    print x
-print neighbors(Bacon)
+
+for x in neighbors(Bacon):
+    print x
