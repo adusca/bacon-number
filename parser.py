@@ -44,6 +44,7 @@ def get_graph(actors_urls):
 
 Bacon = "http://m.imdb.com/name/nm0000102/filmotype/actor?ref_=m_nmfm_1"
 
+
 def bacon_identifier_function(actor_url, graph):
     return actor_url in graph[Bacon]
 
@@ -51,3 +52,4 @@ grafo = get_graph([Bacon])
 
 print bacon_identifier_function("http://m.imdb.com/name/nm0558940/", grafo)
 print bacon_identifier_function("http://m.imdb.com/name/nm8988998/", grafo)
+
