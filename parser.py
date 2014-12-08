@@ -1,4 +1,4 @@
-import urllib2
+import urllib2nm
 import re
 from BeautifulSoup import BeautifulSoup
 
@@ -44,12 +44,18 @@ def get_graph(actors_urls):
 
 Bacon = "http://m.imdb.com/name/nm0000102/filmotype/actor?ref_=m_nmfm_1"
 
-
 def bacon_identifier_function(actor_url, graph):
-    return actor_url in graph[Bacon]
+    if actor_url in graph[Bacon]:
+        return "1"
+    else:
+        return "Bigger then 1"
 
 grafo = get_graph([Bacon])
 
-print bacon_identifier_function("http://m.imdb.com/name/nm0558940/", grafo)
-print bacon_identifier_function("http://m.imdb.com/name/nm8988998/", grafo)
-
+# Command Line Interface
+while True:
+    actor = raw_input("Please insert an actor imdb identifier, or q to quit ")
+    if actor == "q":
+        break
+    #print bacon_identifier_function("http://m.imdb.com/name/nm0558940/", grafo)
+    print bacon_identifier_function("http://m.imdb.com/name/" + actor + "/", grafo)
