@@ -48,7 +48,7 @@ def bacon_identifier_function(actor_url, graph):
     if actor_url in graph[Bacon]:
         return "1"
     else:
-        return "Bigger then 1"
+        return "Bigger than 1"
 
 grafo = get_graph([Bacon])
 
