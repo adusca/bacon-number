@@ -1,3 +1,7 @@
+from collections import deque
+
+# Generating the graph
+
 def name_cleaner(string):
     try:
         return string[:string.index('[')]
@@ -32,11 +36,34 @@ def get_dict(text_file):
             dictionary[movie].add(actor)
     return dictionary, name_to_id
 
+print "Loading..."
+
 graph, names = get_dict('merged_list')
 
 id_to_names = {}
 for key in names:
     id_to_names[names[key]] = key
 
-for x in graph[names['Bacon, Kevin (I)']]:
-    print id_to_names[x]
+# Finding shortest path
+
+def BFS(graph, source):
+    fila = deque()
+    distancia = {source : 0}
+    fila.append(source)
+    while fila:
+        t = fila.popleft()
+        for e in graph[t]:
+            if e not in distancia:
+                distancia[e] = distancia[t] + 1
+                fila.append(e)
+    return distancia
+            
+bacon_numbers = BFS(graph, 569580)
+
+# Command Line Interface
+print "Welcome to the Bacon-Number Finder"
+while True:
+    actor = raw_input("Please insert an name, or q to quit ")
+    if actor == "q":
+        break
+    print bacon_numbers[names[actor]]/2
