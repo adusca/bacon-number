@@ -47,18 +47,20 @@ for key in names:
 # Finding shortest path
 
 def BFS(graph, source):
-    fila = deque()
-    distancia = {source : 0}
-    fila.append(source)
-    while fila:
-        t = fila.popleft()
+    line = deque()
+    distance = {source : 0}
+    line.append(source)
+    while line:
+        t = line.popleft()
         for e in graph[t]:
-            if e not in distancia:
-                distancia[e] = distancia[t] + 1
-                fila.append(e)
-    return distancia
+            if e not in distance:
+                distance[e] = distance[t] + 1
+                line.append(e)
+    return distance
+
+Bacon = names['Bacon, Kevin (I)']
             
-bacon_numbers = BFS(graph, 569580)
+bacon_numbers = BFS(graph, Bacon)
 
 # Command Line Interface
 print "Welcome to the Bacon-Number Finder"
